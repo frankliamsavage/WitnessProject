@@ -1,6 +1,6 @@
 // app/layout.js
 import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
+import "../globals.css";
 
 export const metadata = {
   title: "Witness Portal",

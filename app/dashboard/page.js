@@ -1,12 +1,10 @@
-import { currentUser } from "@clerk/nextjs/server";
-
-export default async function DashboardPage() {
-  const user = await currentUser();
-
+export default function DashboardPage() {
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h1>Welcome, {user?.firstName || "Witness"}!</h1>
-      <p>You are successfully signed in with Clerk.</p>
-    </div>
+    <main className="p-10 text-center">
+      <h1 className="text-4xl font-bold">Welcome to your Dashboard</h1>
+      <p className="mt-4 text-lg text-slate-600">
+        You are now signed in. More features coming soon.
+      </p>
+    </main>
   );
 }

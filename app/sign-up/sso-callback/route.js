@@ -1,6 +1,18 @@
-// app/sign-up/sso-callback/route.js
-import { handleOAuthCallback } from "@clerk/nextjs/server";
+import { auth, redirectToSignIn } from "@clerk/nextjs/server";
 
 export async function GET(req) {
-  return handleOAuthCallback(req);
+  try {
+    // Verify auth or redirect
+    const { userId } = auth();
+
+    if (!userId) {
+      return redirectToSignIn();
+    }
+
+    // If sign-up SSO callback succeeds, redirect to your dashboard or homepage
+    return Response.redirect(new URL("/", req.url)); // change "/" to /dashboard if you want
+  } catch (error) {
+    console.error("SSO Callback Error:", error);
+    return redirectToSignIn();
+  }
 }

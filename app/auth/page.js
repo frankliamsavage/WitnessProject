@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 export default function AuthPage() {
   const [user, setUser] = useState(null);

@@ -1,5 +1,6 @@
 // app/auth/layout.js
 import { ClerkProvider } from "@clerk/nextjs";
+import "../globals.css";
 
 export const metadata = {
   title: "Witness Auth",

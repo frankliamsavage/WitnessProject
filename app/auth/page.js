@@ -1,35 +1,24 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect } from "react";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 export default function AuthPage() {
-  const [user, setUser] = useState(null);
+  const { user } = useUser();
+  const { signOut, openSignIn } = useClerk();
 
+  // If already signed in, redirect to dashboard
   useEffect(() => {
-    // Check if already logged in
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data?.user ?? null);
+    if (user) {
+      window.location.href = "/dashboard";
+    }
+  }, [user]);
+
+  const signInWithGoogle = () => {
+    openSignIn({
+      strategy: "oauth_google",
+      redirectUrl: "/auth/callback",
     });
-
-    // Listen for auth changes
-    const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription?.unsubscribe();
-  }, []);
-
-  const signInWithGoogle = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    });
-  };
-
-  const signOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
   };
 
   return (
@@ -49,9 +38,9 @@ export default function AuthPage() {
           </>
         ) : (
           <>
-            <p className="mb-4">Welcome, {user.email}</p>
+            <p className="mb-4">Welcome, {user.emailAddresses[0].emailAddress}</p>
             <button
-              onClick={signOut}
+              onClick={() => signOut(() => (window.location.href = "/auth"))}
               className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500 transition"
             >
               Sign Out

@@ -8,8 +8,7 @@ export default authMiddleware({
 
 export const config = {
   matcher: [
-    "/((?!.*\\..*|_next).*)",
-    "/",
-    "/(api|trpc)(.*)",
+    "/((?!.*\\..*|_next).*)", // protect routes by default
+    "/",                     // but keep homepage public
   ],
 };

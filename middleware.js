@@ -1,14 +1,10 @@
-import { authMiddleware } from "@clerk/nextjs";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default authMiddleware({
-  publicRoutes: ["/", "/help", "/about"],
-  afterSignInUrl: "/dashboard",
-  afterSignUpUrl: "/dashboard",
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
-    "/((?!.*\\..*|_next).*)", // protect routes by default
-    "/",                     // but keep homepage public
+    "/((?!.*\\..*|_next).*)",
+    "/",
   ],
 };

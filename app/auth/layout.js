@@ -1,13 +1,13 @@
+// app/auth/layout.js
 import { ClerkProvider } from "@clerk/nextjs";
 import "../globals.css";
 
-
 export const metadata = {
-  title: "Witness Portal",
-  description: "Login for the Witness Project",
+  title: "Witness Auth",
+  description: "Authentication pages for Witness Project",
 };
 
-export default function RootLayout({ children }) {
+export default function AuthLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
